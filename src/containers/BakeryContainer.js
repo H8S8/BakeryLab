@@ -1,3 +1,5 @@
+import "./BakeryContainer.css"
+import { useState } from "react"
 import Cake from "../components/Cake"
 
 const BakeryContainer = () => {
@@ -49,17 +51,20 @@ const BakeryContainer = () => {
         }
     ]
 
+    const [totalSalesValue, setTotalSalesValue] = useState(0);
+
     const calculateAverageRating = () => {
         return (cakes.reduce((ratingsSum, cake) => {return ratingsSum + cake.rating}, 0)/cakes.length).toFixed(2);
     }
 
     return(
-        <>
+        <div className={"bakeryContainer"}>
             <h2>Cakes</h2>
             {cakes.map(cakeToDisplay => 
-                <Cake cake={cakeToDisplay}/>)}
-            <p>Average Rating: {calculateAverageRating()}</p>
-        </>
+                <Cake cake={cakeToDisplay} salesValue={totalSalesValue} onButtonClick={setTotalSalesValue}/>)}
+            <p className={"totals"}>Average Rating: {calculateAverageRating()}</p>
+            <p className={"totals"}>Total Sales Value: £{totalSalesValue}</p>
+        </div>
     )
 }
 
